@@ -8,9 +8,8 @@ venv/
 .idea/
 .vscode/
 
-# Ignorer les fichiers sensibles
-hospitalweb/settings.py
-
 # Ignorer les caches Python
 __pycache__/
 *.pyc
+
+.env
