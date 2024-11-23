@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot Médical</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            background-color: #f3f3f3;
+        }
+        #chat {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 10px;
+            background: #fff;
+        }
+        .message {
+            margin: 10px 0;
+        }
+        .user {
+            text-align: right;
+        }
+        .bot {
+            text-align: left;
+        }
+        #input-container {
+            display: flex;
+            padding: 10px;
+            background: #eee;
+        }
+        #message {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+        }
+        #send, #voice-button {
+            margin-left: 10px;
+            padding: 10px 20px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #voice-button {
+            background-color: #ff5722;
+        }
+    </style>
+</head>
+<body>
+    <div id="chat"></div>
+    <div id="input-container">
+        <input type="text" id="message" placeholder="Posez votre question ici...">
+        <button id="send">Envoyer</button>
+        <button id="voice-button">🎤 Parler</button>
+    </div>
+
+    <script>
+        const chat = document.getElementById("chat");
+        const input = document.getElementById("message");
+        const sendButton = document.getElementById("send");
+        const voiceButton = document.getElementById("voice-button");
+
+        // Fonction pour ajouter un message dans la discussion
+        function addMessage(content, sender) {
+            const message = document.createElement("div");
+            message.classList.add("message", sender);
+            message.textContent = content;
+            chat.appendChild(message);
+            chat.scrollTop = chat.scrollHeight; // Toujours scroller vers le bas
+        }
+
+        // Fonction pour envoyer une requête au serveur
+        async function sendMessage(message) {
+            // Ajouter le message utilisateur dans la discussion
+            addMessage(message, "user");
+
+            // Envoyer la requête au serveur
+            try {
+                const response = await fetch("/chatbot/api/", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    body: `message=${encodeURIComponent(message)}`,
+                });
+
+                const data = await response.json();
+                addMessage(data.response, "bot");
+            } catch (error) {
+                addMessage("Erreur : Impossible de contacter le serveur.", "bot");
+            }
+        }
+
+        // Ajouter un événement pour le bouton "Envoyer"
+        sendButton.addEventListener("click", () => {
+            const userMessage = input.value.trim();
+            if (userMessage) {
+                sendMessage(userMessage);
+                input.value = ""; // Réinitialiser le champ d'entrée
+            }
+        });
+
+        // Envoyer le message avec la touche "Entrée"
+        input.addEventListener("keypress", (e) => {
+            if (e.key === "Enter") {
+                const userMessage = input.value.trim();
+                if (userMessage) {
+                    sendMessage(userMessage);
+                    input.value = "";
+                }
+            }
+        });
+
+        // Fonction de reconnaissance vocale avec l'API Web Speech
+        function startVoiceRecognition() {
+            if (!('webkitSpeechRecognition' in window)) {
+                alert("La reconnaissance vocale n'est pas supportée sur ce navigateur.");
+                return;
+            }
+
+            const recognition = new webkitSpeechRecognition();
+            recognition.lang = "fr-FR";
+            recognition.continuous = false;
+            recognition.interimResults = false;
+
+            recognition.onstart = function() {
+                addMessage("En écoute... 🎤", "bot");
+            };
+
+            recognition.onerror = function(event) {
+                addMessage("Erreur de reconnaissance vocale. Veuillez réessayer.", "bot");
+            };
+
+            recognition.onend = function() {
+                addMessage("Arrêt de l'écoute.", "bot");
+            };
+
+            recognition.onresult = function(event) {
+                const spokenText = event.results[0][0].transcript;
+                addMessage(spokenText, "user");
+                sendMessage(spokenText);  // Envoie le texte reconnu au serveur
+            };
+
+            recognition.start();
+        }
+
+        // Ajouter un événement pour le bouton "Parler"
+        voiceButton.addEventListener("click", startVoiceRecognition);
+    </script>
+</body>
+</html>

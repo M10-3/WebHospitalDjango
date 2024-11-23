@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'assets/css/styles.css' %}">
+    <title>Animated Border Registration Form</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: url("{% static 'assets/img/img1.jpg' %}") no-repeat center center fixed; /* Remplacez 'path/to/your/image.jpg' par le chemin réel */
+    background-size: cover;  /* Cela couvre tout l'écran */
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+        }
+
+        .box {
+            position: relative;
+            width: 380px;
+            height: 650px;
+            /* Augmenté pour inclure les nouvelles étapes */
+            background: #1c1c1c;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 80px;  /* Marge pour éviter que le formulaire ne touche la barre de navigation */
+            margin-bottom: 80px; 
+            z-index: 1;
+        }
+
+        .box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 380px;
+            height: 650px;
+            background: linear-gradient(0deg, transparent, transparent, #00eeff, #00eeff, #00eeff);
+            z-index: 1;
+            transform-origin: bottom right;
+            animation: animate 6s linear infinite;
+        }
+
+        .box::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 380px;
+            height: 650px;
+            background: linear-gradient(0deg, transparent, transparent, #00eeff, #00eeff, #00eeff);
+            z-index: 1;
+            transform-origin: bottom right;
+            animation: animate 6s linear infinite;
+            animation-delay: -3s;
+        }
+
+        .border-line {
+            position: absolute;
+            top: 0;
+            inset: 0;
+        }
+
+        .border-line::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 380px;
+            height: 650px;
+            background: linear-gradient(0deg, transparent, transparent, #ff00bb, #ff00bb, #ff00bb);
+            z-index: 1;
+            transform-origin: bottom right;
+            animation: animate 6s linear infinite;
+            animation-delay: -1.5s;
+        }
+
+        .border-line::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 380px;
+            height: 650px;
+            background: linear-gradient(0deg, transparent, transparent, #ff00bb, #ff00bb, #ff00bb);
+            z-index: 1;
+            transform-origin: bottom right;
+            animation: animate 6s linear infinite;
+            animation-delay: -4.5s;
+        }
+
+        @keyframes animate {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .box form {
+            position: absolute;
+            inset: 4px;
+            background: #8a7d7d;
+            padding: 50px 40px;
+            border-radius: 10px;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .box form h2 {
+            color: #fff;
+            font-size: 26px;
+            font-weight: 500;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        .input-box {
+            position: relative;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .input-box input,
+        .input-box select,
+        .input-box textarea {
+            position: relative;
+            width: 100%;
+            padding: 20px 10px 10px;
+            background: transparent;
+            border: none;
+            outline: none;
+            box-shadow: none;
+            color: #23242a;
+            font-size: 16px;
+            letter-spacing: 1px;
+            transition: 0.5s;
+            z-index: 10;
+        }
+
+        .input-box span {
+            position: absolute;
+            left: 0;
+            padding: 20px 0px 10px;
+            pointer-events: none;
+            color: #8f8f8f;
+            font-size: 16px;
+            letter-spacing: 1px;
+            transition: 0.5s;
+            z-index: 10;
+        }
+
+        .input-box input:valid~span,
+        .input-box input:focus~span {
+            color: #fff;
+            font-size: 12px;
+            transform: translateY(-34px);
+        }
+
+        .input-box i {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 2px;
+            background: #fff;
+            border-radius: 4px;
+            overflow: hidden;
+            transition: 0.5s;
+            pointer-events: none;
+        }
+
+        .input-box input:valid~i,
+        .input-box input:focus~i {
+            height: 44px;
+        }
+
+        .imp-links {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .imp-links a {
+            color: #ececec;
+            font-size: 14px;
+            text-decoration: none;
+            margin: 15px 0;
+        }
+
+        .imp-links a:hover {
+            color: #fff;
+        }
+
+        .btn {
+            width: 40%;
+            border: none;
+            outline: none;
+            padding: 10px;
+            border-radius: 45px;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .btn:active {
+            opacity: 0.8;
+        }
+
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="navbar">
+        <div class="container">
+            <nav>
+                <a href="{% url 'main' %}" class="navbar-logo">Health Platform</a>
+                <ul class="navbar-links">
+                    <li><a href="{% url 'login' %}">Services</a></li>
+                    <li><a href="{% url 'login' %}">Rendez-vous</a></li>
+                    {% if patient %}
+                    <!-- Lien de déconnexion -->
+                    <li><a href="{% url 'logout' %}">Déconnexion</a></li>
+                    <!-- Afficher les initiales de l'utilisateur dans un bouton -->
+                    <li>
+                        <a href="{% url 'list_patient' patient.id %}" class="user-initials">
+                            {{ patient.user.nom|slice:":1"|upper }}{{ patient.user.prenom|slice:":1"|upper }}
+                        </a>
+                    </li>
+                    {% else %}
+                    <li><a href="{% url 'login' %}">Connexion</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="box">
+        <div class="border-line"></div>
+        <form method="POST" action="{% url 'register' %}" enctype="multipart/form-data" id="PatientRegistrationForm">
+            {% csrf_token %}
+            <h2>Register</h2>
+
+            <!-- Step 1: Personal Information -->
+            <div class="step active" id="step1">
+                <div class="input-box">
+                    <label for="patient_last_name">Last Name</label>
+                    <div class="input-icon">
+                        <i class="fas fa-user"></i>
+                        <input type="text" class="form-control" id="patient_last_name" name="nom"
+                            placeholder="Enter your last name" required>
+                    </div>
+                </div>
+
+                <div class="input-box">
+                    <label for="patient_first_name">First Name</label>
+                    <div class="input-icon">
+                        <i class="fas fa-user"></i>
+                        <input type="text" class="form-control" id="patient_first_name" name="prenom"
+                            placeholder="Enter your first name" required>
+                    </div>
+                </div>
+
+                <div class="input-box">
+                    <label for="patient_email">Email</label>
+                    <div class="input-icon">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" class="form-control" id="patient_email" name="email"
+                            placeholder="Enter your email" required>
+                    </div>
+                </div>
+
+                <div class="input-box">
+                    <label for="patient_phone">Phone Number</label>
+                    <div class="input-icon">
+                        <i class="fas fa-phone"></i>
+                        <input type="text" class="form-control" id="patient_phone" name="numero"
+                            placeholder="Enter your phone number" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Contact Information -->
+            <div class="step" id="step2">
+                <div class="input-box">
+                    <label for="patient_dob">Date of Birth</label>
+                    <div class="input-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                        <input type="date" class="form-control" id="patient_dob" name="dob" required>
+                    </div>
+                </div>
+
+                <div class="input-box">
+                    <label for="patient_address">Address</label>
+                    <div class="input-icon">
+                        <i class="fas fa-home"></i>
+                        <input type="text" class="form-control" id="patient_address" name="adresse"
+                            placeholder="Enter your address" required>
+                    </div>
+                </div>
+
+                <div class="input-box">
+                    <label for="patient_weight">Weight (kg)</label>
+                    <div class="input-icon">
+                        <i class="fas fa-weight"></i>
+                        <input type="number" class="form-control" id="patient_weight" name="poids"
+                            placeholder="Enter your weight" required>
+                    </div>
+                </div>
+
+                <div class="input-box">
+                    <label for="patient_height">Height (cm)</label>
+                    <div class="input-icon">
+                        <i class="fas fa-ruler-vertical"></i>
+                        <input type="number" class="form-control" id="patient_height" name="taille"
+                            placeholder="Enter your height" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Medical History -->
+            <div class="step" id="step3">
+                <div class="input-box">
+                    <label for="patient_gender">Gender</label>
+                    <div class="input-icon">
+                        <i class="fas fa-venus-mars"></i>
+                        <select class="form-control" id="patient_gender" name="genre" required>
+                            <option value="" disabled selected>Select your gender</option>
+                            <option value="M">Male</option>
+                            <option value="F">Female</option>
+                            <option value="O">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-box">
+                    <label for="dossier_medical_option">Medical history:</label>
+                    <select class="form-control" id="dossier_medical_option" name="dossier_medical_option" required>
+                        <option value="none" selected>Choose an option</option>
+                        <option value="import">Import a medical record</option>
+                        <option value="input">Enter medical record</option>
+                    </select>
+                </div>
+
+                <div id="import_dossier_medical" style="display:none;">
+                    <label for="dossier_medical_file">Import a medical record (PDF)</label>
+                    <input type="file" class="form-control-file" id="dossier_medical_file" name="dossier_medical_file"
+                        accept=".pdf">
+                    <small>Accepted format: PDF</small>
+                </div>
+
+                <div id="input_dossier_medical" style="display:none;">
+                    <label for="dossier_medical_text">Medical record</label>
+                    <textarea class="form-control" id="dossier_medical_text" name="dossier_medical_text" rows="3"
+                        placeholder="Enter your medical records here..."></textarea>
+                </div>
+            </div>
+
+            <!-- Step 4: Final Information -->
+            <div class="step" id="step4">
+                <div class="input-box">
+                    <label for="patient_profile_picture">Profile Picture</label>
+                    <div class="input-icon">
+                        <i class="fas fa-camera"></i>
+                        <input type="file" class="form-control-file" id="patient_profile_picture" name="photo_profil">
+                    </div>
+                </div>
+
+                <div class="input-box">
+                    <label for="patient_password">Password</label>
+                    <div class="input-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" class="form-control" id="patient_password" name="password"
+                            placeholder="Enter your password" required>
+                    </div>
+                </div>
+
+                <div class="input-box">
+                    <label for="patient_confirm_password">Confirm Password</label>
+                    <div class="input-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" class="form-control" id="patient_confirm_password"
+                            name="confirm_password" placeholder="Confirm your password" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="btn-group">
+                <button type="button" class="btn btn-secondary" id="prevBtn" style="display:none;">Previous</button>
+                <button type="button" class="btn btn-primary" id="nextBtn">Next</button>
+                <button type="submit" class="btn btn-success" id="submitBtn" style="display:none;">Submit</button>
+            </div>
+
+        </form>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 4;
+
+        // Show/Hide history fields based on selected option
+        document.getElementById('dossier_medical_option').addEventListener('change', function () {
+            const selectedOption = this.value;
+            const importField = document.getElementById('import_dossier_medical');
+            const inputField = document.getElementById('input_dossier_medical');
+            if (selectedOption === 'import') {
+                importField.style.display = 'block';
+                inputField.style.display = 'none';
+            } else if (selectedOption === 'input') {
+                importField.style.display = 'none';
+                inputField.style.display = 'block';
+            } else {
+                importField.style.display = 'none';
+                inputField.style.display = 'none';
+            }
+        });
+
+        function showStep(step) {
+            for (let i = 1; i <= totalSteps; i++) {
+                const stepElement = document.getElementById('step' + i);
+                stepElement.classList.remove('active');
+            }
+
+            const currentStepElement = document.getElementById('step' + step);
+            currentStepElement.classList.add('active');
+
+            document.getElementById('prevBtn').style.display = step === 1 ? 'none' : 'inline';
+            document.getElementById('nextBtn').style.display = step === totalSteps ? 'none' : 'inline';
+            document.getElementById('submitBtn').style.display = step === totalSteps ? 'inline' : 'none';
+        }
+
+        document.getElementById('submitBtn').addEventListener('click', function () {
+            // Vérification ici si tout est ok avant la soumission
+            console.log("Submit button clicked");
+            document.getElementById('PatientRegistrationForm').submit();  // Soumet manuellement le formulaire
+        });
+
+
+        document.getElementById('nextBtn').addEventListener('click', function () {
+            if (currentStep < totalSteps) {
+                currentStep++;
+                showStep(currentStep);
+            }
+        });
+
+        document.getElementById('prevBtn').addEventListener('click', function () {
+            if (currentStep > 1) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        });
+
+        // Initial step display and event listener for medical history options
+        showStep(currentStep);
+        document.getElementById('dossier_medical_option').dispatchEvent(new Event('change'));
+    </script>
+</body>
+
+</html>

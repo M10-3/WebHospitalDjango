@@ -1,0 +1,230 @@
+/*********************NAVBAR ET FOOTER*********************/
+.navbar {
+    background-color: #1294A7;
+    /* Couleur de fond de la navbar */
+    padding: 15px 0;
+    /* Espacement autour de la navbar */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.navbar nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-logo {
+    font-size: 24px;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    letter-spacing: 1px;
+}
+
+.navbar-links {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.navbar-links li {
+    margin-left: 20px;
+}
+
+.navbar-links a {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 8px 12px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.navbar-links a:hover {
+    background-color: #6ACDE5;
+    /* Légère variation de couleur au survol */
+}
+
+/* Style pour les petits écrans */
+@media (max-width: 768px) {
+    .navbar nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .navbar-links {
+        display: none;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .navbar-links li {
+        margin: 10px 0;
+    }
+
+    .navbar-links.active {
+        display: block;
+    }
+
+    .navbar .container {
+        padding: 0 10px;
+    }
+
+    .navbar-logo {
+        font-size: 20px;
+    }
+}
+
+/* Style pour les initiales de l'utilisateur */
+.user-initials {
+margin-left: 130px;                 /* Pousse les initiales vers la droite */
+display: inline-flex;            /* Utilisation de flexbox pour aligner le texte */
+justify-content: center;         /* Centrer horizontalement */
+align-items: center;             /* Centrer verticalement */
+width: 60px;                     /* Largeur du cercle */
+height: 35px;                    /* Hauteur du cercle */
+background-color: #6ACDE5;       /* Couleur de fond du bouton */
+color: white;
+font-size: 20px;                 /* Ajuster la taille de la police pour que les initiales tiennent dans le cercle */
+font-weight: bold;
+text-align: center;
+border-radius: 50%;              /* Forme ronde */
+text-decoration: none;           /* Enlever la décoration du lien */
+transition: background-color 0.3s ease; /* Transition pour le survol */
+box-sizing: border-box;          /* Inclure les bordures et padding dans les dimensions */
+}
+
+.user-initials:hover {
+background-color: #205c6b; /* Changer la couleur de fond au survol */
+}
+
+/* Adapter le style pour les petits écrans */
+@media (max-width: 768px) {
+.user-initials {
+font-size: 14px;
+width: 35px;  /* Réduire la taille du cercle sur les petits écrans */
+height: 35px;
+}
+}
+
+.footer {
+background-color: #2c3e50; /* Fond sombre pour un look élégant */
+color: white;
+padding: 40px 0;
+font-family: 'Arial', sans-serif;
+margin-top: auto; 
+}
+
+/* Conteneur central du footer */
+.footer .container {
+max-width: 1200px;
+margin: 0 auto;
+padding: 0 20px;
+}
+
+/* Contenu du footer (sections) */
+/* General footer styling */
+.footer {
+background-color: #f5f5f5; /* Soft light gray for a modern look */
+color: #333; /* Dark text for better readability */
+padding: 50px 0;
+font-family: 'Arial', sans-serif;
+}
+
+/* Container for the footer */
+.footer .container {
+max-width: 1200px;
+margin: 0 auto;
+padding: 0 20px;
+}
+
+/* Footer content sections (3 columns) */
+.footer-content {
+display: flex;
+justify-content: space-between;
+flex-wrap: wrap;
+}
+
+/* Individual footer section */
+.footer-section {
+flex: 1;
+margin-right: 40px;
+margin-bottom: 20px;
+}
+
+/* Section headings */
+.footer-section h4 {
+font-size: 18px;
+margin-bottom: 15px;
+font-weight: bold;
+color: #1294A7; /* Blue color for headings */
+}
+
+/* List of links in Quick Links section */
+.footer-section ul {
+list-style-type: none;
+padding: 0;
+}
+
+.footer-section ul li {
+margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+text-decoration: none;
+color: #1294A7; /* Blue color for links */
+font-size: 14px;
+transition: color 0.3s;
+}
+
+.footer-section ul li a:hover {
+color: #1294A7; /* Darker blue on hover */
+}
+
+/* Social media icons section */
+.social-links {
+list-style-type: none;
+padding: 0;
+display: flex;
+}
+
+.social-links li {
+margin-right: 15px;
+}
+
+.social-icon {
+text-decoration: none;
+color: #333; /* Dark color for icons */
+font-size: 20px;
+transition: color 0.3s;
+}
+
+.social-icon:hover {
+color: #1294A7; /* Blue color on hover for social icons */
+}
+
+/* Bottom section of the footer */
+.footer-bottom {
+text-align: center;
+margin-top: 20px;
+font-size: 14px;
+}
+
+.footer-bottom p {
+margin: 0;
+color: #666; /* Lighter gray for the bottom text */
+}

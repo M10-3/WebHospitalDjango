@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Platform</title>
+    <link rel="stylesheet" href="{% static 'assets/css/main.css' %}">
+    <!-- Link to Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap">
+    <!-- Link for Font Awesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        /* Style pour la barre de navigation */
+        .navbar {
+            background-color: #1294A7;
+            /* Couleur de fond de la navbar */
+            padding: 15px 0;
+            /* Espacement autour de la navbar */
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .navbar nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-logo {
+            font-size: 24px;
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .navbar-links {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .navbar-links li {
+            margin-left: 20px;
+        }
+
+        .navbar-links a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar-links a:hover {
+            background-color: #6ACDE5;
+            /* Légère variation de couleur au survol */
+        }
+
+        /* Style pour les petits écrans */
+        @media (max-width: 768px) {
+            .navbar nav {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .navbar-links {
+                display: none;
+                width: 100%;
+                margin-top: 10px;
+            }
+
+            .navbar-links li {
+                margin: 10px 0;
+            }
+
+            .navbar-links.active {
+                display: block;
+            }
+
+            .navbar .container {
+                padding: 0 10px;
+            }
+
+            .navbar-logo {
+                font-size: 20px;
+            }
+        }
+
+ /* Style pour les initiales de l'utilisateur */
+.user-initials {
+    margin-left: 130px;                 /* Pousse les initiales vers la droite */
+    display: inline-flex;            /* Utilisation de flexbox pour aligner le texte */
+    justify-content: center;         /* Centrer horizontalement */
+    align-items: center;             /* Centrer verticalement */
+    width: 60px;                     /* Largeur du cercle */
+    height: 35px;                    /* Hauteur du cercle */
+    background-color: #6ACDE5;       /* Couleur de fond du bouton */
+    color: white;
+    font-size: 20px;                 /* Ajuster la taille de la police pour que les initiales tiennent dans le cercle */
+    font-weight: bold;
+    text-align: center;
+    border-radius: 50%;              /* Forme ronde */
+    text-decoration: none;           /* Enlever la décoration du lien */
+    transition: background-color 0.3s ease; /* Transition pour le survol */
+    box-sizing: border-box;          /* Inclure les bordures et padding dans les dimensions */
+}
+
+.user-initials:hover {
+    background-color: #205c6b; /* Changer la couleur de fond au survol */
+}
+
+/* Adapter le style pour les petits écrans */
+@media (max-width: 768px) {
+    .user-initials {
+        font-size: 14px;
+        width: 35px;  /* Réduire la taille du cercle sur les petits écrans */
+        height: 35px;
+    }
+}
+
+/*********************FOOTER************************/
+/* Style général du footer */
+.footer {
+    background-color: #2c3e50; /* Fond sombre pour un look élégant */
+    color: white;
+    padding: 40px 0;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Conteneur central du footer */
+.footer .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Contenu du footer (sections) */
+/* General footer styling */
+.footer {
+    background-color: #f5f5f5; /* Soft light gray for a modern look */
+    color: #333; /* Dark text for better readability */
+    padding: 50px 0;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Container for the footer */
+.footer .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Footer content sections (3 columns) */
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+/* Individual footer section */
+.footer-section {
+    flex: 1;
+    margin-right: 40px;
+    margin-bottom: 20px;
+}
+
+/* Section headings */
+.footer-section h4 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    font-weight: bold;
+    color: #1294A7; /* Blue color for headings */
+}
+
+/* List of links in Quick Links section */
+.footer-section ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+    text-decoration: none;
+    color: #1294A7; /* Blue color for links */
+    font-size: 14px;
+    transition: color 0.3s;
+}
+
+.footer-section ul li a:hover {
+    color: #1294A7; /* Darker blue on hover */
+}
+
+/* Social media icons section */
+.social-links {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+}
+
+.social-links li {
+    margin-right: 15px;
+}
+
+.social-icon {
+    text-decoration: none;
+    color: #333; /* Dark color for icons */
+    font-size: 20px;
+    transition: color 0.3s;
+}
+
+.social-icon:hover {
+    color: #1294A7; /* Blue color on hover for social icons */
+}
+
+/* Bottom section of the footer */
+.footer-bottom {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.footer-bottom p {
+    margin: 0;
+    color: #666; /* Lighter gray for the bottom text */
+}
+
+        /*****************************CHATBOT**********************/
+
+        #chatbot-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #6ACDE5;
+            color: white;
+            padding: 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 24px;
+            /* Taille de l'icône */
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Style de la fenêtre du chatbot */
+        #chatbot-container {
+            position: fixed;
+            bottom: 70px;
+            right: 20px;
+            width: 300px;
+            height: 400px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            /* Bords arrondis */
+            display: none;
+            /* Par défaut, masqué */
+            flex-direction: column;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            /* Ombre douce */
+            transition: transform 0.3s ease-in-out;
+        }
+
+        #chatbot-container.show {
+            transform: translateY(0);
+        }
+
+        #chatbot-container.hide {
+            transform: translateY(100%);
+            /* La fenêtre descend en dehors de l'écran */
+        }
+
+
+        #chat {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 10px;
+            background: #f9f9f9;
+        }
+
+        .message {
+            margin: 10px 0;
+        }
+
+        /* Style des messages du patient */
+        .user {
+            text-align: right;
+            margin: 10px;
+            padding: 10px;
+            background-color: #6ACDE5;
+            /* Vert pour l'utilisateur */
+            color: white;
+            border-radius: 15px;
+            max-width: 70%;
+            margin-left: auto;
+            margin-right: 10px;
+            word-wrap: break-word;
+        }
+
+        /* Style des messages du chatbot */
+        .bot {
+            text-align: left;
+            margin: 10px;
+            padding: 10px;
+            background-color: #f1f1f1;
+            /* Gris clair pour le chatbot */
+            color: #333;
+            border-radius: 15px;
+            max-width: 70%;
+            margin-left: 10px;
+            margin-right: auto;
+            word-wrap: break-word;
+        }
+
+        #input-container {
+            display: flex;
+            padding: 10px;
+            background: #eee;
+        }
+
+        #message {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        #send-icon,
+        #voice-icon {
+            font-size: 24px;
+            cursor: pointer;
+            margin-left: 10px;
+            color: #6ACDE5;
+            /* Vert pour l'icône d'envoi */
+            transition: transform 0.3s ease;
+        }
+
+        #send-icon:hover,
+        #voice-icon:hover {
+            transform: scale(1.2);
+            /* Agrandir l'icône au survol */
+        }
+
+        /* Style pour l'en-tête du chatbot */
+        #chatbot-header {
+            background-color: #6ACDE5;
+            /* Couleur de fond (peut être modifiée) */
+            color: white;
+            padding: 10px;
+            font-size: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        #chatbot-title {
+            font-weight: bold;
+        }
+
+        #close-chatbot {
+            background: none;
+            color: white;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+        }
+
+        #close-chatbot:hover {
+            opacity: 0.7;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Barre de navigation -->
+    <header class="navbar">
+        <div class="container">
+            <nav>
+                <a href="{% url 'home_patient' %}" class="navbar-logo">Health Platform</a>
+                <ul class="navbar-links">
+                    <li><a href="{% url 'home_patient' %}">Accueil</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="{% url 'list_patient' patient.id %}">Mon Profil</a></li>
+                    <li><a href="#appointments">Rendez-vous</a></li>
+
+                    {% if patient %}
+                    <!-- Lien de déconnexion -->
+                    <li><a href="{% url 'logout' %}">Déconnexion</a></li>
+<!-- Résultat du modèle -->
+                    <li><a href="{% url 'model_results' %}">Réadmission</a></li>
+                    <!-- Afficher les initiales de l'utilisateur dans un bouton -->
+                    <li>
+                        <a href="{% url 'list_patient' patient.id %}" class="user-initials">
+                            {{ patient.user.nom|slice:":1"|upper }}{{ patient.user.prenom|slice:":1"|upper }}
+                        </a>
+                    </li>
+                    {% else %}
+                    <li><a href="{% url 'login' %}">Connexion</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+
+    <!-- Navbar with user initials 
+    <header class="navbar">
+        <div class="container">
+            <div class="top-right">
+                {% if patient %}
+                <div class="dropdown">
+                    <button class="dropbtn">{{ patient.user.nom|slice:":1" }}{{ patient.user.prenom|slice:":1"
+                        }}</button>
+                    <div class="dropdown-content">
+                        <a href="{% url 'list_patient' patient.id %}">My Profile</a>
+                        <a href="{% url 'update_patient' patient.id %}">Update Profil</a>
+                        <a href="{% url 'delete_patient' patient.id %}">Log Out</a>
+                    </div>
+                </div>
+                {% else %}
+                <a href="{% url 'login' %}" class="btn-patient">Connexion</a>
+                {% endif %}
+
+            </div>
+        </div>
+    </header>-->
+
+    <!-- Hero section with background image -->
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Welcome to the Health Platform</h1>
+            {% if patient %}
+            <h1>{{ patient.user.prenom}} {{ patient.user.nom }}</h1>
+            {% endif %}
+            <p>Your health is our priority. Access your medical information online.</p>
+            <!--<div class="hero-buttons">
+                <a href="{% url 'register' %}" class="btn-patient">Sign Up</a>
+                <a href="{% url 'login' %}" class="btn-patient">Log In</a>
+            </div>-->
+        </div>
+    </header>
+
+    <!-- Services section with images and text -->
+    <section class="services">
+        <div class="container">
+            <a href="{% url 'personnel_list' %}">Voir la liste du personnel</a>
+            <h2>Our Services</h2>
+            <p class="description">Explore the features of our platform to enhance your medical management.</p>
+            <div class="services-cards">
+                <div class="service-card">
+                    <img src="{% static 'assets/img/image2.png' %}" alt="Doctors" />
+                    <h3>Medical Consultations</h3>
+                    <p>Access your medical consultations online and book appointments with specialists.</p>
+                </div>
+                <div class="service-card">
+                    <img src="{% static 'assets/img/image1.png' %}" alt="Medical Records" />
+                    <h3>Medical Records</h3>
+                    <p>Track your diagnoses and test results anytime via our secure platform.</p>
+                </div>
+                <div class="service-card">
+                    <img src="{% static 'assets/img/image3.png' %}" alt="Appointments" />
+                    <h3>Appointment Management</h3>
+                    <p>Easily book, modify, or cancel your medical appointments online.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% if user.is_authenticated %}
+    <!-- Icône flottante du chatbot -->
+    <div id="chatbot-icon" onclick="toggleChatbot()">💬</div>
+
+    <!-- Fenêtre du chatbot (initialement cachée) -->
+    <div id="chatbot-container">
+        <div id="chatbot-header">
+            <span id="chatbot-title">Chatbot</span>
+            <button id="close-chatbot" onclick="toggleChatbot()">X</button>
+        </div>
+
+        <div id="chat"></div>
+        <div id="input-container">
+            <input type="text" id="message" placeholder="Posez votre question ici...">
+            <!-- Remplacer le bouton "Envoyer" -->
+            <button id="send" style="display:none;">Envoyer</button>
+            <i id="send-icon" class="fas fa-paper-plane"></i>
+
+            <!-- Remplacer le bouton "Parler" -->
+            <button id="voice-button" style="display:none;">🎤 Parler</button>
+            <i id="voice-icon" class="fas fa-microphone"></i>
+        </div>
+    </div>
+    {% endif %}
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <!-- First column (Platform info) -->
+                <div class="footer-section">
+                    <h4>Health Platform</h4>
+                    <p>Your health is our priority. We offer quality healthcare services for all.</p>
+                </div>
+    
+                <!-- Second column (Quick links) -->
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="{% url 'home_patient' %}">Home</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="{% url 'list_patient' patient.id %}">My Profile</a></li>
+                        <li><a href="#appointments">Appointments</a></li>
+                    </ul>
+                </div>
+    
+                <!-- Third column (Follow us) -->
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <ul class="social-links">
+                        <li><a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href="#" class="social-icon"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="#" class="social-icon"><i class="fab fa-instagram"></i></a></li>
+                        <li><a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+    
+            <div class="footer-bottom">
+                <p>&copy; 2024 Health Platform. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    
+    <script>
+        document.querySelectorAll('.btn-patient').forEach(button => {
+            button.addEventListener('mouseenter', () => {
+                button.classList.add('animate__pulse');
+            });
+
+            button.addEventListener('mouseleave', () => {
+                button.classList.remove('animate__pulse');
+            });
+        });
+
+
+        // Fonction pour afficher/masquer la fenêtre du chatbot
+        function toggleChatbot() {
+            const chatbotContainer = document.getElementById("chatbot-container");
+            if (chatbotContainer.style.display === "none" || chatbotContainer.style.display === "") {
+                chatbotContainer.style.display = "flex"; // Afficher la fenêtre
+            } else {
+                chatbotContainer.style.display = "none"; // Masquer la fenêtre
+            }
+        }
+
+        const chat = document.getElementById("chat");
+        const input = document.getElementById("message");
+        const sendButton = document.getElementById("send-icon");
+        const voiceButton = document.getElementById("voice-icon");
+
+        // Fonction pour ajouter un message dans le chat
+        function addMessage(content, sender) {
+            const message = document.createElement("div");
+            message.classList.add("message", sender);
+            message.textContent = content;
+            chat.appendChild(message);
+            chat.scrollTop = chat.scrollHeight;
+        }
+
+        // Fonction pour envoyer un message au serveur
+        async function sendMessage(message) {
+            addMessage(message, "user");
+            try {
+                const response = await fetch("/chatbot/api/", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    body: `message=${encodeURIComponent(message)}`,
+                });
+
+                const data = await response.json();
+                addMessage(data.response, "bot");
+            } catch (error) {
+                addMessage("Erreur : Impossible de contacter le serveur.", "bot");
+            }
+        }
+
+        sendButton.addEventListener("click", () => {
+            const userMessage = input.value.trim();
+            if (userMessage) {
+                sendMessage(userMessage);
+                input.value = ""; // Réinitialiser le champ de saisie
+            }
+        });
+
+        input.addEventListener("keypress", (e) => {
+            if (e.key === "Enter") {
+                const userMessage = input.value.trim();
+                if (userMessage) {
+                    sendMessage(userMessage);
+                    input.value = ""; // Réinitialiser le champ de saisie
+                }
+            }
+        });
+
+        // Fonction de reconnaissance vocale avec l'API Web Speech
+        function startVoiceRecognition() {
+            if (!('webkitSpeechRecognition' in window)) {
+                alert("La reconnaissance vocale n'est pas supportée sur ce navigateur.");
+                return;
+            }
+
+            const recognition = new webkitSpeechRecognition();
+            recognition.lang = "fr-FR";
+            recognition.continuous = false;
+            recognition.interimResults = false;
+
+            recognition.onstart = function () {
+                addMessage("En écoute... 🎤", "bot");
+            };
+
+            recognition.onerror = function (event) {
+                addMessage("Erreur de reconnaissance vocale. Veuillez réessayer.", "bot");
+            };
+
+            recognition.onend = function () {
+                addMessage("Arrêt de l'écoute.", "bot");
+            };
+
+            recognition.onresult = function (event) {
+                const spokenText = event.results[0][0].transcript;
+                addMessage(spokenText, "user");
+                sendMessage(spokenText);  // Envoie le texte reconnu au serveur
+            };
+
+            recognition.start();
+        }
+
+        voiceButton.addEventListener("click", startVoiceRecognition);
+    </script>
+
+</body>
+
+</html>

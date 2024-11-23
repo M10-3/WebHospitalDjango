@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmation de suppression</title>
+    <link rel="stylesheet" href="{% static 'assets/css/styles.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #6ACDE5;
+            background: linear-gradient(135deg, #5297a8, #90e0f4);
+            color: #fff;
+            overflow: hidden;
+        }
+
+        .confirmation-container {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 15px;
+            width: 400px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+
+        h2 {
+            font-size: 28px;
+            margin-bottom: 30px;
+            animation: zoomIn 1.2s ease-out;
+        }
+
+        @keyframes zoomIn {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        button, a {
+            padding: 15px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            color: #fff;
+            background-color: #e74c3c;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover, a:hover {
+            background-color: #c0392b;
+            transform: scale(1.1);
+        }
+
+        a {
+            background-color: #6ACDE5;
+        }
+
+        a:hover {
+            background-color: #90e0f4;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        /* Effet d'ombre sur les boutons */
+        button:active, a:active {
+            transform: scale(1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Animation sur le bouton */
+        button {
+            transition: all 0.3s ease;
+        }
+
+        .confirmation-container a {
+            text-decoration: none;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="confirmation-container">
+        <h2>Delete {{ patient.user.nom }} {{ patient.user.prenom }} ?</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="buttons">
+                <button type="submit">Yes, Delete</button>
+                <a href="{% url 'list_patient' patient_id=patient.id %}">Cancel</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

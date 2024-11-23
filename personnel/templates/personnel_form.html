@@ -1,0 +1,7 @@
+<h1>{% if object %}Modifier Personnel{% else %}Ajouter un Personnel{% endif %}</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Enregistrer</button>
+</form>
+<a href="{% url 'personnel_list' %}">Annuler</a>

@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    {% load socialaccount %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panda Login Form</title>
+    <link rel="stylesheet" href="{% static 'assets/css/styles.css' %}">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+     <!-- Link to Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap">
+    <!-- Link for Font Awesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background: url("{% static 'assets/img/img1.jpg' %}") no-repeat center center fixed; /* Remplacez 'path/to/your/image.jpg' par le chemin réel */
+    background-size: cover;  /* Cela couvre tout l'écran */
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+        }
+
+        .container-login {
+            height: 31.25em;
+            width: 31.25em;
+            position: absolute;
+            transform: translate(-50%, -50%);
+            top: 50%;
+            left: 50%;
+        }
+
+        form {
+            width: 23.75em;
+            height: 18.75em;
+            background-color: #ffffff;
+            position: absolute;
+            transform: translate(-50%, -50%);
+            top: calc(50% + 3.1em);
+            left: 50%;
+            padding: 0 3.1em;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-radius: 0.5em;
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 0.2em;
+            font-weight: 600;
+            color: #2e0d30;
+        }
+
+        form input {
+            font-size: 0.95em;
+            font-weight: 400;
+            color: #3f3554;
+            padding: 0.3em;
+            border: none;
+            border-bottom: 0.12em solid #3f3554;
+            outline: none;
+        }
+
+        form input:focus {
+            border-color: #f4c531;
+        }
+
+        form input:not(:last-child) {
+            margin-bottom: 0.9em;
+        }
+
+        form button {
+            font-size: 0.95em;
+            padding: 0.8em 0;
+            border-radius: 2em;
+            border: none;
+            cursor: pointer;
+            outline: none;
+            background-color: #f4c531;
+            color: #2e0d30;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            margin-top: 0.8em;
+            transition: 0.5s;
+        }
+
+        .panda-face {
+            height: 7.5em;
+            width: 8.4em;
+            background-color: #ffffff;
+            border: 0.18em solid #2e0d30;
+            border-radius: 7.5em 7.5em 5.62em 5.62em;
+            position: absolute;
+            top: 2em;
+            margin: auto;
+            left: 0;
+            right: 0;
+        }
+
+        .ear-l,
+        .ear-r {
+            background-color: #3f3554;
+            height: 2.5em;
+            width: 2.81em;
+            border: 0.18em solid #2e0d30;
+            border-radius: 2.5em 2.5em 0 0;
+            top: 1.75em;
+            position: absolute;
+        }
+
+        .ear-l {
+            transform: rotate(-38deg);
+            left: 10.75em;
+        }
+
+        .ear-r {
+            transform: rotate(38deg);
+            right: 10.75em;
+        }
+
+        .blush-l,
+        .blush-r {
+            background-color: #ff8bb1;
+            height: 1em;
+            width: 1.37em;
+            border-radius: 50%;
+            position: absolute;
+            top: 4em;
+        }
+
+        .blush-l {
+            transform: rotate(25deg);
+            left: 1em;
+        }
+
+        .blush-r {
+            transform: rotate(-25deg);
+            right: 1em;
+        }
+
+        .eye-l,
+        .eye-r {
+            background-color: #3f3554;
+            height: 2.18em;
+            width: 2em;
+            border-radius: 2em;
+            position: absolute;
+            top: 2.18em;
+        }
+
+        .eye-l {
+            left: 1.37em;
+            transform: rotate(-20deg);
+        }
+
+        .eye-r {
+            right: 1.37em;
+            transform: rotate(20deg);
+        }
+
+        .eyeball-l,
+        .eyeball-r {
+            height: 0.6em;
+            width: 0.6em;
+            background-color: #ffffff;
+            border-radius: 50%;
+            position: absolute;
+            left: 0.6em;
+            top: 0.6em;
+            transition: 1s all;
+        }
+
+        .eyeball-l {
+            transform: rotate(20deg);
+        }
+
+        .eyeball-r {
+            transform: rotate(-20deg);
+        }
+
+        .nose {
+            height: 1em;
+            width: 1em;
+            background-color: #3f3554;
+            position: absolute;
+            top: 4.37em;
+            margin: auto;
+            left: 0;
+            right: 0;
+            border-radius: 1.2em 0 0 0.25em;
+            transform: rotate(45deg);
+        }
+
+        .nose:before {
+            content: "";
+            position: absolute;
+            background-color: #3f3554;
+            height: 0.6em;
+            width: 0.1em;
+            transform: rotate(-45deg);
+            top: 0.75em;
+            left: 1em;
+        }
+
+        .mouth,
+        .mouth:before {
+            height: 0.75em;
+            width: 0.93em;
+            background-color: transparent;
+            position: absolute;
+            border-radius: 50%;
+            box-shadow: 0 0.18em #3f3554;
+        }
+
+        .mouth {
+            top: 5.31em;
+            left: 3.12em;
+        }
+
+        .mouth:before {
+            content: "";
+            position: absolute;
+            left: 0.87em;
+        }
+
+        .hand-l,
+        .hand-r {
+            background-color: #3f3554;
+            height: 2.81em;
+            width: 2.5em;
+            border: 0.18em solid #2e0d30;
+            border-radius: 0.6em 0.6em 2.18em 2.18em;
+            transition: 1s all;
+            position: absolute;
+            top: 8.4em;
+        }
+
+        .hand-l {
+            left: 7.5em;
+        }
+
+        .hand-r {
+            right: 7.5em;
+        }
+
+        .paw-l,
+        .paw-r {
+            background-color: #3f3554;
+            height: 3.12em;
+            width: 3.12em;
+            border: 0.18em solid #2e0d30;
+            border-radius: 2.5em 2.5em 1.2em 1.2em;
+            position: absolute;
+            top: 26.56em;
+        }
+
+        .paw-l {
+            left: 10em;
+        }
+
+        .paw-r {
+            right: 10em;
+        }
+
+        .paw-l:before,
+        .paw-r:before {
+            position: absolute;
+            content: "";
+            background-color: #ffffff;
+            height: 1.37em;
+            width: 1.75em;
+            top: 1.12em;
+            left: 0.55em;
+            border-radius: 1.56em 1.56em 0.6em 0.6em;
+        }
+
+        .paw-l:after,
+        .paw-r:after {
+            position: absolute;
+            content: "";
+            background-color: #ffffff;
+            height: 0.5em;
+            width: 0.5em;
+            border-radius: 50%;
+            top: 0.31em;
+            left: 1.12em;
+            box-shadow: 0.87em 0.37em #ffffff, -0.87em 0.37em #ffffff;
+        }
+
+        @media screen and (max-width: 500px) {
+            .container {
+                font-size: 14px;
+            }
+        }
+
+        /* Styles pour le message "Sign up now" et le bouton Facebook */
+        .sign-up {
+            text-align: center;
+            /*margin-top: 1.5em;
+            Un peu d'espace au-dessus */
+        }
+
+        .text-center {
+            text-align: center;
+            /* margin-top: 1.5em;
+             Un peu d'espace au-dessus pour espacer avec "Sign up" */
+        }
+
+        /* Ajustement du lien Facebook */
+        .text-center .btn {
+            margin-top: 1.5em;
+            /* Un peu d'espace avant le bouton */
+            /*padding: 0.8em 2.5em;*/
+            text-align: center;
+            font-size: 1em;
+            border-radius: 2em;
+            background-color: #3b5998;
+            /* Couleur typique de Facebook */
+            color: white;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .text-center .btn i {
+            margin-right: 0.5em;
+        }
+
+        /* Style pour la barre de navigation */
+        .navbar {
+            background-color: #1294A7;
+            /* Couleur de fond de la navbar */
+            padding: 15px 0;
+            /* Espacement autour de la navbar */
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .navbar nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-logo {
+            font-size: 24px;
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .navbar-links {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .navbar-links li {
+            margin-left: 20px;
+        }
+
+        .navbar-links a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar-links a:hover {
+            background-color: #6ACDE5;
+            /* Légère variation de couleur au survol */
+        }
+
+        /* Style pour les petits écrans */
+        @media (max-width: 768px) {
+            .navbar nav {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .navbar-links {
+                display: none;
+                width: 100%;
+                margin-top: 10px;
+            }
+
+            .navbar-links li {
+                margin: 10px 0;
+            }
+
+            .navbar-links.active {
+                display: block;
+            }
+
+            .navbar .container {
+                padding: 0 10px;
+            }
+
+            .navbar-logo {
+                font-size: 20px;
+            }
+        }
+
+        /*********************FOOTER************************/
+        /* Style général du footer */
+        .footer {
+            background-color: #2c3e50;
+            /* Fond sombre pour un look élégant */
+            color: white;
+            padding: 40px 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Conteneur central du footer */
+        .footer .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Contenu du footer (sections) */
+        /* General footer styling */
+        .footer {
+            background-color: #f5f5f5;
+            /* Soft light gray for a modern look */
+            color: #333;
+            /* Dark text for better readability */
+            padding: 50px 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Container for the footer */
+        .footer .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Footer content sections (3 columns) */
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        /* Individual footer section */
+        .footer-section {
+            flex: 1;
+            margin-right: 40px;
+            margin-bottom: 20px;
+        }
+
+        /* Section headings */
+        .footer-section h4 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: #1294A7;
+            /* Blue color for headings */
+        }
+
+        /* List of links in Quick Links section */
+        .footer-section ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul li a {
+            text-decoration: none;
+            color: #1294A7;
+            /* Blue color for links */
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .footer-section ul li a:hover {
+            color: #1294A7;
+            /* Darker blue on hover */
+        }
+
+        /* Social media icons section */
+        .social-links {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+        }
+
+        .social-links li {
+            margin-right: 15px;
+        }
+
+        .social-icon {
+            text-decoration: none;
+            color: #333;
+            /* Dark color for icons */
+            font-size: 20px;
+            transition: color 0.3s;
+        }
+
+        .social-icon:hover {
+            color: #1294A7;
+            /* Blue color on hover for social icons */
+        }
+
+        /* Bottom section of the footer */
+        .footer-bottom {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .footer-bottom p {
+            margin: 0;
+            color: #666;
+            /* Lighter gray for the bottom text */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Barre de navigation -->
+    <header class="navbar">
+        <div class="container">
+            <nav>
+                <a href="{% url 'main' %}" class="navbar-logo">Health Platform</a>
+                <ul class="navbar-links">
+                    <li><a href="{% url 'login' %}">Services</a></li>
+                    <li><a href="{% url 'login' %}">Rendez-vous</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container-login">
+        <div class="panda-animation">
+            <!-- Panda Animation -->
+            <div class="ear-l"></div>
+            <div class="ear-r"></div>
+            <div class="panda-face">
+                <div class="blush-l"></div>
+                <div class="blush-r"></div>
+                <div class="eye-l">
+                    <div class="eyeball-l"></div>
+                </div>
+                <div class="eye-r">
+                    <div class="eyeball-r"></div>
+                </div>
+                <div class="nose"></div>
+                <div class="mouth"></div>
+            </div>
+            <div class="hand-l"></div>
+            <div class="hand-r"></div>
+            <div class="paw-l"></div>
+            <div class="paw-r"></div>
+        </div>
+
+        <!-- Formulaire Django -->
+        <form method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div class="input-block">
+                <label for="email" class="input-label">Email</label>
+                <input type="email" name="email" required placeholder="Email">
+            </div>
+            <div class="input-block">
+                <label for="password" class="input-label">Password</label>
+                <input type="password" name="password" required placeholder="Password">
+            </div>
+            <div class="modal-buttons">
+                <a href="#" class="">Forgot your password?</a>
+                <button type="submit">Log In</button>
+            </div>
+            <p class="sign-up">Don't have an account? <a href="{% url 'register' %}">Sign up</a></p>
+            <div class="text-center">
+                <a href="{% provider_login_url 'facebook' %}" class="btn btn-primary">
+                    <i class="fab fa-facebook-f"></i> Login with Facebook
+                </a>
+            </div>
+        </form>
+
+
+    </div>
+
+    <!-- Footer 
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Health Platform</h4>
+                    <p>Your health is our priority. We offer quality healthcare services for all.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="{% url 'login' %}">Services</a></li>
+                        <li><a href="{% url 'login' %}">Rendez-vous</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <ul class="social-links">
+                        <li><a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href="#" class="social-icon"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="#" class="social-icon"><i class="fab fa-instagram"></i></a></li>
+                        <li><a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 Health Platform. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>-->
+
+
+    <!-- Script pour l'animation -->
+    <script>
+
+        document.querySelectorAll('.btn-patient').forEach(button => {
+            button.addEventListener('mouseenter', () => {
+                button.classList.add('animate__pulse');
+            });
+
+            button.addEventListener('mouseleave', () => {
+                button.classList.remove('animate__pulse');
+            });
+        });
+
+        let emailRef = document.getElementsByName("email")[0]; // Modifier ici
+        let passwordRef = document.getElementsByName("password")[0];
+        let eyeL = document.querySelector(".eyeball-l");
+        let eyeR = document.querySelector(".eyeball-r");
+        let handL = document.querySelector(".hand-l");
+        let handR = document.querySelector(".hand-r");
+
+        let normalEyeStyle = () => {
+            eyeL.style.cssText = `
+          left:0.6em;
+          top: 0.6em;
+        `;
+            eyeR.style.cssText = `
+        right:0.6em;
+        top:0.6em;
+        `;
+        };
+
+        let normalHandStyle = () => {
+            handL.style.cssText = `
+              height: 2.81em;
+              top:8.4em;
+              left:7.5em;
+              transform: rotate(0deg);
+          `;
+            handR.style.cssText = `
+              height: 2.81em;
+              top: 8.4em;
+              right: 7.5em;
+              transform: rotate(0deg)
+          `;
+        };
+
+        // Quand on clique sur le champ email
+        emailRef.addEventListener("focus", () => {
+            eyeL.style.cssText = `
+          left: 0.75em;
+          top: 1.12em;  
+        `;
+            eyeR.style.cssText = `
+          right: 0.75em;
+          top: 1.12em;
+        `;
+            normalHandStyle();
+        });
+
+        // Quand on clique sur le champ password
+        passwordRef.addEventListener("focus", () => {
+            handL.style.cssText = `
+              height: 6.56em;
+              top: 3.87em;
+              left: 11.75em;
+              transform: rotate(-155deg);    
+          `;
+            handR.style.cssText = `
+          height: 6.56em;
+          top: 3.87em;
+          right: 11.75em;
+          transform: rotate(155deg);
+        `;
+            normalEyeStyle();
+        });
+
+        // Quand on clique ailleurs que sur email et password
+        document.addEventListener("click", (e) => {
+            let clickedElem = e.target;
+            if (clickedElem != emailRef && clickedElem != passwordRef) {
+                normalEyeStyle();
+                normalHandStyle();
+            }
+        });
+    </script>
+</body>
+
+</html>

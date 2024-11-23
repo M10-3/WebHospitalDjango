@@ -1,0 +1,16 @@
+# Ignorer l'environnement virtuel
+venv/
+
+# Ignorer les fichiers de logs
+*.log
+
+# Ignorer les configurations des IDE
+.idea/
+.vscode/
+
+# Ignorer les fichiers sensibles
+hospitalweb/settings.py
+
+# Ignorer les caches Python
+__pycache__/
+*.pyc

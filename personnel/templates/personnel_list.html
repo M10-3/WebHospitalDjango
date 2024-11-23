@@ -1,0 +1,11 @@
+<h1>Liste des Personnels</h1>
+<a href="{% url 'personnel_create' %}">Ajouter un Personnel</a>
+<ul>
+    {% for personnel in personnels %}
+        <li>
+            <a href="{% url 'personnel_detail' personnel.pk %}">{{ personnel.prenom }} {{ personnel.nom }}</a>
+            (<a href="{% url 'personnel_update' personnel.pk %}">Modifier</a> | 
+            <a href="{% url 'personnel_delete' personnel.pk %}">Supprimer</a>)
+        </li>
+    {% endfor %}
+</ul>

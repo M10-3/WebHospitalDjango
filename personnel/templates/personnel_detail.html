@@ -1,0 +1,6 @@
+<h1>{{ personnel.prenom }} {{ personnel.nom }}</h1>
+<p>Fonction: {{ personnel.fonction }}</p>
+<p>Téléphone: {{ personnel.telephone }}</p>
+<p>Email: {{ personnel.email }}</p>
+<p>Adresse: {{ personnel.adresse }}</p>
+<a href="{% url 'personnel_list' %}">Retour à la liste</a>
